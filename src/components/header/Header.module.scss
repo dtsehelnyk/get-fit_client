@@ -1,0 +1,12 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/consts.scss';
+
+.logoWrapper {
+  order: 1;
+  margin-left: 10px;
+
+  @include md {
+    order: -1;
+    margin-left: 0;
+  }
+}

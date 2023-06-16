@@ -1,11 +1,13 @@
 import React from "react";
-import { Header } from "../components/header";
+import Intro from "../components/Intro";
+import { Header } from "../components/Header";
 
 export const Results: React.FC = () => {
 
     return (
         <div>
-            <Header title={'Result title'} content={'Result content'} />
+            <Header />
+            <Intro title={'Result title'} />
             {'wewfwfdwfd'}
         </div>
     );
