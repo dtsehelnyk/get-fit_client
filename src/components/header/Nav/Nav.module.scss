@@ -1,0 +1,40 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/consts.scss';
+
+.nav {
+  display: none;
+
+  @include md {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    justify-content: center;
+  }
+
+  .button {
+    display: block;
+    color: #fff;
+  }
+}
+
+.menu {
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+  order: 1;
+  padding-right: 0;
+
+  @include md {
+    display: none;
+  }
+
+  .menuButton {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .mobileMenu {
+    display: block;
+  }
+}
+

@@ -1,11 +1,12 @@
 import React from "react";
-import { Header } from "../../components/header";
+import { Header } from "../../components/Header";
+import Intro from "../../components/Intro";
 
 export const Exercises = () => {
 
     return (
         <div>
-            <Header title={'Exercises title'} content={'Exercises content'} />
+            <Intro title={'Exercises title'} />
             exs
         </div>
     );

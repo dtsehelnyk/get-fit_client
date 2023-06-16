@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { Header } from "../components/header";
 import { UserContext, UserContextProvider } from "../context/UserContext";
+import Intro from "../components/Intro";
 
 export const User: React.FC = () => {
     const userContext = useContext(UserContext);
@@ -9,7 +9,7 @@ export const User: React.FC = () => {
     
     return (
         <div>
-            <Header title={'User title'} content={'User content'} />
+            <Intro title={'User title'} />
             text
         </div>
     );

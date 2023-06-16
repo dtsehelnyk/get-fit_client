@@ -1,24 +1,13 @@
-import axios from '../utils/axios';
 import { useContext, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
-import { UserContext, UserContextProvider } from '../context/UserContext';
+import { UserContextProvider } from '../context/UserContext';
 import AppRouter from './AppRouter';
 
-const App: React.FC = () => {
-    const userContext = useContext(UserContext);
-
-    useEffect(() => {
-        axios.get('/commonExercises')
-            .then((data) => {
-                console.log(data.data);
-            });
-    }, []);
-
-    return (
-        <UserContextProvider>
-            <AppRouter user={userContext?.user} />
-        </UserContextProvider>
-    );
-}
+const App: React.FC = () => (
+  <UserContextProvider>
+    <AppRouter />
+  </UserContextProvider>
+);
 
 export default App;
