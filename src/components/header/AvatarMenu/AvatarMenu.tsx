@@ -1,4 +1,5 @@
 import { useState, MouseEvent } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 import {
   Avatar,
@@ -9,13 +10,14 @@ import {
   Tooltip,
   Typography
 } from '@mui/material';
-import { UserProps } from '../../../types/props';
+import { PROFILE_LINKS } from '../../../utils/consts';
+import { UserContextType } from '../../../context/UserContext';
+import { decapitalizeFirstChart } from '../../../utils/formatting';
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+type AvatarMenuProps = UserContextType;
 
-type AvatarMenuProps = UserProps;
-
-const AvatarMenu: React.FC<AvatarMenuProps>= ({ user }) => {
+const AvatarMenu: React.FC<Record<'userContext', AvatarMenuProps>> = ({ userContext }) => {
+  const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
@@ -26,11 +28,30 @@ const AvatarMenu: React.FC<AvatarMenuProps>= ({ user }) => {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    window.localStorage.removeItem('token');
+    userContext.setUser(null);
+  };
+
+  const handleRedirect = (link: typeof PROFILE_LINKS[number]) => {
+    handleCloseUserMenu();
+
+    if (link === 'Logout') {
+      handleLogout();
+
+      navigate(`/login`);
+      return;
+    }
+
+    const route = decapitalizeFirstChart(link);
+    navigate(`/${route}`);
+  };
+
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt={user?.username} src="/static/images/avatar/2.jpg" />
+          <Avatar alt={userContext.user?.username} src="/static/images/avatar/2.jpg" />
         </IconButton>
       </Tooltip>
       <Menu
@@ -49,9 +70,9 @@ const AvatarMenu: React.FC<AvatarMenuProps>= ({ user }) => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
+        {PROFILE_LINKS.map((link) => (
+          <MenuItem key={link} onClick={() => handleRedirect(link)}>
+            <Typography textAlign="center">{link}</Typography>
           </MenuItem>
         ))}
       </Menu>

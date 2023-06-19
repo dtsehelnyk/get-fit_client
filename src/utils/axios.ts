@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LoginParams } from '../types/requestParams';
+import { ExerciseTemplate, LoginParams } from '../types/requestParams';
 
 export const instance = axios.create({
   baseURL: 'http://localhost:5050',
@@ -37,5 +37,17 @@ export const authMe = (): any => {
     console.log('__err: ', err);
     
     return err;
+  }
+}
+
+export const getCommonEx = (): Promise<ExerciseTemplate[]> | undefined => {
+  try {
+    return instance.get('/commonExercises')
+      .then((data) => data?.data)
+      .catch((err) => err);
+  } catch (err) {
+    console.log('__err: ', err);
+    
+    return;
   }
 }

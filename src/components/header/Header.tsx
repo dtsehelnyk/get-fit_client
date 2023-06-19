@@ -1,7 +1,9 @@
+import { useContext } from 'react';
 import styles from './Header.module.scss';
+import { useNavigate } from 'react-router-dom';
 import {
     AppBar,
-    Box,
+    Button,
     Container,
     Toolbar,
 } from "@mui/material";
@@ -9,23 +11,34 @@ import {
 import { Nav } from "./Nav";
 import { Logo } from "../Logo";
 import AvatarMenu from "./AvatarMenu";
-import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
+import { LOGIN, LOGIN_ROUTE, REGISTER, REGISTRATION_ROUTE } from '../../utils/consts';
+import RedirectButton from '../RedirectButton';
 
 const Header: React.FC = () => {
   const userContext = useContext(UserContext);
+  const navigate = useNavigate();
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* <FitnessCenterRoundedIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-          <Box className={styles.logoWrapper}>
-            <Logo /> 
-          </Box> 
+          <div className={styles.logoWrapper}>
+            <Logo />
+          </div>
+
           <Nav />
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
-          <AvatarMenu user={userContext?.user} />
+
+          {userContext?.user
+            ? <AvatarMenu userContext={userContext} />
+            : (
+              <div className={styles.authButtons}>
+                <RedirectButton route={`/${LOGIN_ROUTE}`}>{LOGIN}</RedirectButton>
+                <RedirectButton route={`/${REGISTRATION_ROUTE}`}>{REGISTER}</RedirectButton>
+              </div>
+            )
+          }
         </Toolbar>
       </Container>
     </AppBar>

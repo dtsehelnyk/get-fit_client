@@ -1,11 +1,18 @@
 .root {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    flex-direction: column;
     height: 100vh;
 }
 
+.content {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
 .field {
-    margin-bottom: 15px;
+    margin-bottom: 15px !important;
 }

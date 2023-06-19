@@ -1,11 +1,12 @@
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { authRoutes, publicRoutes } from '../routes';
 import { UserContext } from '../context/UserContext';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { authMe } from '../utils/axios';
 
 const AppRouter: React.FC = () => {
   const userContext = useContext(UserContext);
+  const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
     try {
@@ -15,8 +16,9 @@ const AppRouter: React.FC = () => {
               
         if (data) {
           userContext?.setUser(data);
+          setIsAuth(true);
         } else {
-          return <Navigate to={'/'} />
+          setIsAuth(false);
         }
       }
 
@@ -24,12 +26,11 @@ const AppRouter: React.FC = () => {
     } catch (err) {}     
   }, []);
 
-  const routes = userContext?.user
-    ? createBrowserRouter(authRoutes)
-    : createBrowserRouter(publicRoutes);
-  
   return (
-    <RouterProvider router={routes} fallbackElement={<p>Loading...</p>} />
+    <RouterProvider
+      router={createBrowserRouter(isAuth ? authRoutes : publicRoutes)}
+      fallbackElement={<p>Loading...</p>}
+    />
   );
 }
 
