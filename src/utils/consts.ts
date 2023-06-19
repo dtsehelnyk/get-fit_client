@@ -1,3 +1,7 @@
+// COMMON
+export const LOGIN = 'LOGIN';
+export const REGISTER = 'REGISTER';
+
 // ROUTES
 
 //  export const ADMIN_ROUTE = '/admin';
@@ -13,4 +17,10 @@ export const RESULTS_ROUTE = 'results';
 export const GET_FIT = 'GetFit';
 
 // MENUS
-export const HEADER_NAV_PAGES = ['Exercises', 'Diets', 'More'];
+export const MENU = 'MENU';
+export const HEADER_NAV_PAGES = ['Exercises', 'Diets', 'More'] as const;
+export const PROFILE_LINKS = ['Profile', 'Results', 'Logout'] as const;
+
+// VALIDATION
+export const ENTER_EMAIL = 'Enter your email';
+export const ENTER_PASSwORD = 'Enter your password';

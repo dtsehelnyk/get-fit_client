@@ -8,17 +8,27 @@ import {
   MenuItem,
   Typography
 } from '@mui/material'
-import { HEADER_NAV_PAGES } from '../../../utils/consts';
+import { HEADER_NAV_PAGES, MENU } from '../../../utils/consts';
+import { useNavigate } from 'react-router-dom';
+import { decapitalizeFirstChart } from '../../../utils/formatting';
 
 const Nav = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  
+  const navigate = useNavigate();
+
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleNavRedirect = (link: string) => {
+    handleCloseNavMenu();
+    const route = decapitalizeFirstChart(link);
+    
+    navigate(`/${route}`);
   };
 
   return (
@@ -28,7 +38,7 @@ const Nav = () => {
         {HEADER_NAV_PAGES.map((page) => (
           <Button
             key={page}
-            onClick={handleCloseNavMenu}
+            onClick={() => handleNavRedirect(page)}
             className={styles.button}
           >
             {page}
@@ -40,13 +50,11 @@ const Nav = () => {
       <Box className={styles.menu}>
         <IconButton
           className={styles.menuButton}
-          // aria-label="account of current user"
-          // aria-controls="menu-appbar"
-          // aria-haspopup="true"
+          aria-haspopup="true"
           onClick={handleOpenNavMenu}
           color="inherit"
         >
-          {'Menu'}
+          {MENU}
         </IconButton>
         <Menu
           id="menu-appbar"
@@ -65,7 +73,7 @@ const Nav = () => {
           className={styles.mobileMenu}
         >
           {HEADER_NAV_PAGES.map((page) => (
-            <MenuItem key={page} onClick={handleCloseNavMenu}>
+            <MenuItem key={page} onClick={() => handleNavRedirect(page)}>
               <Typography textAlign="center">{page}</Typography>
             </MenuItem>
           ))}

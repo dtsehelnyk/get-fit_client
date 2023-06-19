@@ -2,11 +2,21 @@
 @import '../../styles/consts.scss';
 
 .logoWrapper {
-  order: 1;
-  margin-left: 10px;
+  order: 0;
 
   @include md {
     order: -1;
     margin-left: 0;
+  }
+}
+
+.authButtons {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  order: 0;
+
+  @include md {
+    flex-grow: 0;
   }
 }

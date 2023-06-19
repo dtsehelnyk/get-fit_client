@@ -3,6 +3,7 @@
 
 .nav {
   display: none;
+  margin: 0 20px;
 
   @include md {
     display: flex;
@@ -31,6 +32,7 @@
   .menuButton {
     padding-left: 0;
     padding-right: 0;
+    font-size: 20px;
   }
 
   .mobileMenu {
