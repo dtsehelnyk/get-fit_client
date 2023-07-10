@@ -1,24 +1,24 @@
-import { createBrowserRouter } from "react-router-dom";
 import {
+  BASE_ROUTE,
   EXERCISES_ROUTE,
   EXERCISE_ROUTE, 
   LOGIN_ROUTE, 
   REGISTRATION_ROUTE, 
+  REST_ROUTE, 
   RESULTS_ROUTE,
   USER_ROUTE
-} from "./utils/consts"
-
+} from "./utils/consts";
 
 export const authRoutes = [
   {
-    path: '/',
+    path: BASE_ROUTE,
     async lazy() {
       const { User } = await import('./pages/User');
       return { Component: User };
     },
   },
   {
-    path: USER_ROUTE + '/:id',
+    path: USER_ROUTE,
     async lazy() {
       const { User } = await import('./pages/User');
       return { Component: User };
@@ -26,6 +26,7 @@ export const authRoutes = [
   },
   {
     path: RESULTS_ROUTE,
+    exact: true,
     async lazy() {
       const { Results } = await import('./pages/Results');
       return { Component: Results };
@@ -33,6 +34,7 @@ export const authRoutes = [
   },
   {
     path: EXERCISES_ROUTE,
+    exact: true,
     async lazy() {
       const { Exercises } = await import('./pages/Exercises/Exercises');
       return { Component: Exercises };
@@ -46,7 +48,7 @@ export const authRoutes = [
     }
   },
   {
-    path: "*",
+    path: REST_ROUTE,
     async lazy() {
       const { NotFound } = await import('./pages/NotFound');
       return { Component: NotFound };
@@ -57,6 +59,7 @@ export const authRoutes = [
 export const publicRoutes = [
   {
     path: REGISTRATION_ROUTE,
+    exact: true,
     async lazy() {
       const { Registration } = await import('./pages/Registration/Registration');
       return { Component: Registration };
@@ -64,6 +67,7 @@ export const publicRoutes = [
   },
   {
     path: LOGIN_ROUTE,
+    exact: true,
     async lazy() {
       const { Login } = await import('./pages/Login');
       return { Component: Login };
@@ -71,6 +75,7 @@ export const publicRoutes = [
   },
   {
     path: EXERCISES_ROUTE,
+    exact: true,
     async lazy() {
       const { Exercises } = await import('./pages/Exercises/Exercises');
       return { Component: Exercises };
@@ -84,10 +89,10 @@ export const publicRoutes = [
     }
   },
   {
-    path: "*",
+    path: REST_ROUTE,
     async lazy() {
-      const { NotFound } = await import('./pages/NotFound');
-      return { Component: NotFound };
+      const { Login } = await import('./pages/Login');
+      return { Component: Login };
     },
   },
 ];
