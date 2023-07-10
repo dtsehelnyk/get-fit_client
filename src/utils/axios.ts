@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ExerciseTemplate, LoginParams } from '../types/requestParams';
+import { User } from '../types/user';
 
 export const instance = axios.create({
   baseURL: 'http://localhost:5050',
@@ -30,7 +31,7 @@ export const handleLogin = (params: LoginParams): any => {
 
 export const authMe = (): any => {
   try {
-    return instance.get('/users/me')
+    return instance.get<User>('/users/me')
       .then((data) => data)
       .catch((err) => err);
   } catch (err) {
@@ -40,7 +41,7 @@ export const authMe = (): any => {
   }
 }
 
-export const getCommonEx = (): Promise<ExerciseTemplate[]> | undefined => {
+export const getCommonEx = (): Promise<ExerciseTemplate[]> => {
   try {
     return instance.get('/commonExercises')
       .then((data) => data?.data)
@@ -48,6 +49,20 @@ export const getCommonEx = (): Promise<ExerciseTemplate[]> | undefined => {
   } catch (err) {
     console.log('__err: ', err);
     
-    return;
+    throw new Error(err as string);
+  }
+}
+
+// TODO: add type
+export const getResults = (): Promise<any> => {
+  try {
+    return instance.get('/workouts')
+      .then((data) => data?.data)
+      .catch((err) => err);
+  } catch (err) {
+    console.log('__err: ', err);
+    
+    throw new Error(err as string);
+
   }
 }

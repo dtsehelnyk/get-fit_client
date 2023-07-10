@@ -1,15 +1,5 @@
 import { createContext, useState } from "react";
-
-export type User = {
-  username: string,
-  email: string,
-  measure: string,
-  language: string,
-  canTrain: string[],
-  themeId?: string,
-  avatarImg?: string,
-  weight?: number,
-}
+import { User } from "../types/user";
 
 export type UserContextType = {
   user: User | null,

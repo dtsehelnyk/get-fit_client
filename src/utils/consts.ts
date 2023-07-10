@@ -4,13 +4,15 @@ export const REGISTER = 'REGISTER';
 
 // ROUTES
 
-//  export const ADMIN_ROUTE = '/admin';
+export const BASE_ROUTE = '/';
+export const REST_ROUTE = '*';
+
 export const LOGIN_ROUTE = 'login';
 export const REGISTRATION_ROUTE = 'registration';
-export const USER_ROUTE = 'user';
+export const USER_ROUTE = 'user/:id';
 
 export const EXERCISES_ROUTE = 'exercises';
-export const EXERCISE_ROUTE = 'exercise';
+export const EXERCISE_ROUTE = 'exercises/:id';
 export const RESULTS_ROUTE = 'results';
 
 // NAMES
