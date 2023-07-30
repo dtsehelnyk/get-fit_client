@@ -11,6 +11,7 @@ import Intro from "../components/Intro";
 import { Header } from "../components/Header";
 import { getResults } from "../utils/axios";
 import { capitalizeFirstChart } from "../utils/formatting";
+import { Exercise } from "./Exercise";
 
 const columns: GridColDef[] = [
   { 
@@ -75,7 +76,7 @@ export const Results: FC = () => {
   const [workouts, setWorkouts] = useState<any>([]);
 
   useEffect(() => {
-    getResults() 
+    getResults()
       .then((res) => {
         console.log('___', res);
         if (res?.days) {
@@ -88,6 +89,8 @@ export const Results: FC = () => {
 
   const handleParseRows = () => {
     return workouts.map((workout: { date: any, exercises: any[] }, id: number) => {
+      console.log('___workout', workout);
+      
       return {
         id: id + 1,
         date: workout?.date,
@@ -97,7 +100,7 @@ export const Results: FC = () => {
   }
 
   const handleParseCols = () => {
-    const names: string[] = [];
+    const names: string[] = ['date'];
 
     workouts.forEach((w: any) => {
       w.exercises.forEach((e: any) => {
@@ -122,7 +125,6 @@ export const Results: FC = () => {
       // }
       console.log('??workoug', workout);
       
-      
       return {
         name: workout,
         headerName: capitalizeFirstChart(workout),
@@ -130,12 +132,16 @@ export const Results: FC = () => {
         width: 120,
         field: workout,
         renderCell: (params: GridRenderCellParams) => {
-          console.log('____params', params.row.exercises);
+          console.log('____params', params);
           
           return (
             <TextField
               multiline={true}
-              value={params.row.exercises.find((e: any) => e.name === workout)?.sets[0]?.result || '---'}
+              value={
+                params.field === 'date'
+                  ? params.formattedValue
+                  : params.row.exercises.find((e: any) => e.name === workout)?.sets[0]?.result || '---'
+              }
             />
           );
         },
